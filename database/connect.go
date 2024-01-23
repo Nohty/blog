@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/Nohty/blog/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -23,6 +24,6 @@ func Connect() {
 	}
 
 	slog.Info("Connected to database")
-	DB.AutoMigrate()
+	DB.AutoMigrate(&model.User{}, &model.BlogPost{}, &model.Comment{})
 	slog.Info("Database migrated")
 }
