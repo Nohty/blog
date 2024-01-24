@@ -24,6 +24,6 @@ func Connect() {
 	}
 
 	slog.Info("Connected to database")
-	DB.AutoMigrate(&model.User{}, &model.BlogPost{}, &model.Comment{})
+	DB.AutoMigrate(&model.User{}, &model.BlogPost{})
 	slog.Info("Database migrated")
 }
