@@ -3,6 +3,7 @@ module github.com/Nohty/blog
 go 1.21.5
 
 require (
+	github.com/a-h/templ v0.2.513
 	github.com/go-playground/validator/v10 v10.17.0
 	github.com/gofiber/fiber/v2 v2.52.0
 	github.com/golang-jwt/jwt/v5 v5.2.0
