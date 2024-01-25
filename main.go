@@ -13,6 +13,7 @@ import (
 	"github.com/Nohty/blog/router"
 	"github.com/Nohty/blog/utils"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
@@ -33,6 +34,10 @@ func main() {
 		Root:       http.FS(embedDirAssets),
 		PathPrefix: "assets",
 		Browse:     true,
+	}))
+
+	app.Use(favicon.New(favicon.Config{
+		File: "./assets/favicon.ico",
 	}))
 
 	app.Use(logger.New())
