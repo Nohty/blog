@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/Nohty/blog/handler"
+	"github.com/Nohty/blog/middleware"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -18,8 +19,13 @@ func SetupRoutes(app *fiber.App) {
 	user := api.Group("/user")
 	user.Post("/", handler.CreateUser)
 
-	// // API routes Blog
-	// blog := api.Group("/blog")
+	// API routes Blog
+	blog := api.Group("/blog")
+	blog.Get("/", middleware.Protected, handler.GetBlogPosts)
+	blog.Get("/:id", middleware.Protected, handler.GetBlogPost)
+	blog.Post("/", middleware.Protected, handler.CreateBlogPost)
+	blog.Put("/:id", middleware.Protected, handler.UpdateBlogPost)
+	blog.Delete("/:id", middleware.Protected, handler.DeleteBlogPost)
 
 	// Web routes Blog
 	web.Get("/", handler.HomeHandler)
