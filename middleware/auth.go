@@ -29,7 +29,7 @@ func Protected(c *fiber.Ctx) error {
 			return fiber.ErrUnauthorized
 		}
 
-		c.Next()
+		return c.Next()
 	}
 
 	return fiber.ErrUnauthorized
