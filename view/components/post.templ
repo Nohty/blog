@@ -1,0 +1,18 @@
+package components
+
+import "github.com/Nohty/blog/model"
+import "fmt"
+
+templ Post(user model.User, post model.BlogPost) {
+	<div class="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2">
+		<a class="absolute inset-0 z-10" href={ templ.SafeURL(fmt.Sprintf("/blog/%v", post.ID)) }>
+			<span class="sr-only">View</span>
+		</a>
+		<img alt={ fmt.Sprintf("Blog Post %v", post.ID) } class="object-cover w-full h-64" height="400" width="500" style="aspect-ratio: 500 / 400; object-fit: cover" src={ post.Image }/>
+		<div class="bg-gray-800 p-4">
+			<h3 class="font-semibold text-xl">{ post.Title }</h3>
+			<p class="text-sm text-gray-400">{ user.Name }, { post.CreatedAt.Format("Jan 1, 2024") }</p>
+			<p class="text-sm text-gray-400">{ post.Category }</p>
+		</div>
+	</div>
+}
