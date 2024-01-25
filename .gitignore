@@ -31,3 +31,6 @@ view/**/*_templ.go
 
 # tailwind generated files
 tailwind.min.css
+
+# build files
+bin/
