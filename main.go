@@ -26,6 +26,8 @@ func main() {
 		ErrorHandler: utils.ErrorHandler,
 	})
 
+	app.Use(logger.New())
+
 	database.Connect()
 
 	router.SetupRoutes(app)
@@ -40,7 +42,6 @@ func main() {
 		File: "./assets/favicon.ico",
 	}))
 
-	app.Use(logger.New())
 	app.Use(middleware.NotFoundMiddleware)
 
 	if app.Listen(fmt.Sprintf(":%s", config.PORT)) != nil {
