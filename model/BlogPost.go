@@ -6,6 +6,6 @@ type BlogPost struct {
 	gorm.Model `json:"-"`
 	Title      string `gorm:"not null" json:"title"`
 	Content    string `gorm:"not null" json:"content"`
-	Author     User   `gorm:"foreignKey:ID" json:"autor"`
 	Category   string `gorm:"not null" json:"category"`
+	Image      string `gorm:"not null" json:"image"`
 }
