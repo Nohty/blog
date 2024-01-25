@@ -25,3 +25,9 @@ go.work
 
 # test DB file
 test.db
+
+# templ generated files
+view/**/*_templ.go
+
+# tailwind generated files
+tailwind.min.css
