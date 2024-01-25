@@ -16,3 +16,12 @@ func HomeHandler(c *fiber.Ctx) error {
 
 	return utils.Render(c, pages.Home(user))
 }
+
+func BlogHandler(c *fiber.Ctx) error {
+	var user model.User
+	if err := database.DB.First(&user, database.USER_ID).Error; err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	return utils.Render(c, pages.Blog(user, make([]model.BlogPost, 0)))
+}
