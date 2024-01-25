@@ -23,5 +23,10 @@ func BlogHandler(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	return utils.Render(c, pages.Blog(user, make([]model.BlogPost, 0)))
+	var posts []model.BlogPost
+	if err := database.DB.Find(&posts).Error; err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	return utils.Render(c, pages.Blog(user, posts))
 }
