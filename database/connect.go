@@ -10,6 +10,8 @@ import (
 	"gorm.io/gorm/logger"
 )
 
+const USER_ID = 1
+
 var DB *gorm.DB
 
 func Connect() {
