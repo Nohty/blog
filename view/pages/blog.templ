@@ -3,6 +3,22 @@ package pages
 import "github.com/Nohty/blog/model"
 import "github.com/Nohty/blog/view/layout"
 import "github.com/Nohty/blog/view/components"
+import "strings"
+import "slices"
+
+func GetUniqueCategories(posts []model.BlogPost) []string {
+	var categories []string
+
+	for _, post := range posts {
+		for _, category := range strings.Split(post.Category, ",") {
+			if !slices.Contains(categories, category) {
+				categories = append(categories, category)
+			}
+		}
+	}
+
+	return categories
+}
 
 templ Blog(user model.User, posts []model.BlogPost) {
 	@layout.Base() {
@@ -19,9 +35,9 @@ templ Blog(user model.User, posts []model.BlogPost) {
 						<label class="sr-only" for="filter">Filter by category</label>
 						<select class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline bg-gray-800 text-white" id="filter">
 							<option>All Categories</option>
-							<option>Category 1</option>
-							<option>Category 2</option>
-							<option>Category 3</option>
+							for _, category := range GetUniqueCategories(posts) {
+								<option>{ category }</option>
+							}
 						</select>
 					</div>
 				</div>
