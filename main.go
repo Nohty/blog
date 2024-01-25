@@ -39,7 +39,8 @@ func main() {
 	}))
 
 	app.Use(favicon.New(favicon.Config{
-		File: "./assets/favicon.ico",
+		FileSystem: http.FS(embedDirAssets),
+		File:       "assets/favicon.ico",
 	}))
 
 	app.Use(middleware.NotFoundMiddleware)
