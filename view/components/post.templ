@@ -11,7 +11,7 @@ templ Post(user model.User, post model.BlogPost) {
 		<img alt={ fmt.Sprintf("Blog Post %v", post.ID) } class="object-cover w-full h-64" height="400" width="500" style="aspect-ratio: 500 / 400; object-fit: cover" src={ post.Image }/>
 		<div class="bg-gray-800 p-4">
 			<h3 class="font-semibold text-xl">{ post.Title }</h3>
-			<p class="text-sm text-gray-400">{ user.Name }, { post.CreatedAt.Format("Jan 1, 2024") }</p>
+			<p class="text-sm text-gray-400">{ user.Name }, { post.CreatedAt.Format("Jan 02, 2006") }</p>
 			<p class="text-sm text-gray-400">{ post.Category }</p>
 		</div>
 	</div>
