@@ -22,7 +22,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	var user model.User
-	if err := database.DB.First(&user, 0).Error; err != nil {
+	if err := database.DB.First(&user, database.USER_ID).Error; err != nil {
 		return fiber.ErrInternalServerError
 	}
 
