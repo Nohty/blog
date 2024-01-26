@@ -30,6 +30,7 @@ func SetupRoutes(app *fiber.App) {
 	// Web routes Blog
 	web.Get("/", handler.HomeHandler)
 	web.Get("/blog", handler.BlogHandler)
+	web.Get("/blog/:id", handler.BlogPostHandler)
 
 	// // Web routes Admin
 	// admin := web.Group("/admin")
