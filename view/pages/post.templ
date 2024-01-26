@@ -26,6 +26,7 @@ templ Post(user model.User, post model.BlogPost) {
 						<span>Posted on { post.CreatedAt.Format("January 02, 2006") }</span>
 					</div>
 				</div>
+				<br/>
 				<div id="contents" class="mt-4" style="text-indent: 0;">
 					@templ.Raw(convertMarkdownToHTML(post.Content))
 				</div>
