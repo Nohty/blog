@@ -1,0 +1,33 @@
+package pages
+
+import "github.com/Nohty/blog/model"
+import "github.com/Nohty/blog/view/layout"
+import "github.com/gomarkdown/markdown"
+
+func convertMarkdownToHTML(md string) string {
+	return string(markdown.ToHTML([]byte(md), nil, nil))
+}
+
+templ Post(user model.User, post model.BlogPost) {
+	@layout.Base() {
+		<main class="dark flex flex-col items-center py-2 min-h-screen bg-gray-900 text-gray-300">
+			<article class="prose prose-gray mx-auto dark:prose-invert p-8" style="max-width: 800px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);">
+				<div class="space-y-2 not-prose">
+					<h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem] text-white">
+						{ post.Title }
+					</h1>
+					<div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+						<span>Category: { post.Category }</span>
+						<span>•</span>
+						<span>Author: { user.Name }</span>
+						<span>•</span>
+						<span>Posted on { post.CreatedAt.Format("January 02, 2006") }</span>
+					</div>
+				</div>
+				<div class="mt-4" style="text-indent: 0;">
+					@templ.Raw(convertMarkdownToHTML(post.Content))
+				</div>
+			</article>
+		</main>
+	}
+}
