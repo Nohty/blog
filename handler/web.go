@@ -70,3 +70,22 @@ func BlogHandler(c *fiber.Ctx) error {
 
 	return utils.Render(c, pages.Blog(user, filteredPosts, search, category, categories))
 }
+
+func BlogPostHandler(c *fiber.Ctx) error {
+	id, err := c.ParamsInt("id")
+	if err != nil {
+		return c.Redirect("/blog")
+	}
+
+	var user model.User
+	if err := database.DB.First(&user, database.USER_ID).Error; err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	var post model.BlogPost
+	if err := database.DB.First(&post, id).Error; err != nil {
+		return fiber.ErrNotFound
+	}
+
+	return utils.Render(c, pages.Post(user, post))
+}
