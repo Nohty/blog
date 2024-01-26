@@ -2,6 +2,7 @@ package pages
 
 import "github.com/Nohty/blog/model"
 import "github.com/Nohty/blog/view/layout"
+import "github.com/Nohty/blog/view/components"
 import "github.com/gomarkdown/markdown"
 
 func convertMarkdownToHTML(md string) string {
@@ -10,6 +11,7 @@ func convertMarkdownToHTML(md string) string {
 
 templ Post(user model.User, post model.BlogPost) {
 	@layout.Base() {
+		<link rel="stylesheet" href="/assets/styles.css"/>
 		<main class="dark flex flex-col items-center py-2 min-h-screen bg-gray-900 text-gray-300">
 			<article class="prose prose-gray mx-auto dark:prose-invert p-8" style="max-width: 800px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);">
 				<div class="space-y-2 not-prose">
@@ -24,8 +26,13 @@ templ Post(user model.User, post model.BlogPost) {
 						<span>Posted on { post.CreatedAt.Format("January 02, 2006") }</span>
 					</div>
 				</div>
-				<div class="mt-4" style="text-indent: 0;">
+				<div id="contents" class="mt-4" style="text-indent: 0;">
 					@templ.Raw(convertMarkdownToHTML(post.Content))
+				</div>
+				<div class="flex flex-row items-center justify-center space-x-4 mt-8">
+					@components.Linkedin(user.Linkedin)
+					@components.Github(user.Github)
+					@components.Email(user.Email)
 				</div>
 			</article>
 		</main>
