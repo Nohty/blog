@@ -1,0 +1,13 @@
+package components
+
+templ Nav(href string, selected bool) {
+	if selected {
+		<a href={ templ.SafeURL(href) } class="flex items-center gap-3 rounded-lg px-3 py-2 bg-gray-700 text-gray-50 transition-all hover:text-gray-50">
+			{ children... }
+		</a>
+	} else {
+		<a href={ templ.SafeURL(href) } class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-400 transition-all hover:text-gray-50">
+			{ children... }
+		</a>
+	}
+}
