@@ -133,6 +133,7 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool) {
 						@components.Profile(user)
 					} else {
 						@components.Posts(posts)
+						@components.Delete()
 					}
 				</div>
 			</div>
