@@ -32,10 +32,11 @@ func GetBlogPost(c *fiber.Ctx) error {
 
 func CreateBlogPost(c *fiber.Ctx) error {
 	type NewBlogPost struct {
-		Title    string `json:"title" validate:"required"`
-		Content  string `json:"content" validate:"required"`
-		Category string `json:"category" validate:"required"`
-		Image    string `json:"image" validate:"required"`
+		Title     string `json:"title" validate:"required"`
+		Content   string `json:"content" validate:"required"`
+		Category  string `json:"category" validate:"required"`
+		Image     string `json:"image" validate:"required"`
+		Published bool   `json:"published"`
 	}
 
 	input := new(NewBlogPost)
@@ -45,10 +46,11 @@ func CreateBlogPost(c *fiber.Ctx) error {
 	}
 
 	post := model.BlogPost{
-		Title:    input.Title,
-		Content:  input.Content,
-		Category: input.Category,
-		Image:    input.Image,
+		Title:     input.Title,
+		Content:   input.Content,
+		Category:  input.Category,
+		Image:     input.Image,
+		Published: input.Published,
 	}
 
 	if err := database.DB.Create(&post).Error; err != nil {
@@ -65,10 +67,11 @@ func UpdateBlogPost(c *fiber.Ctx) error {
 	}
 
 	type UpdateBlogPost struct {
-		Title    string `json:"title" validate:"required"`
-		Content  string `json:"content" validate:"required"`
-		Category string `json:"category" validate:"required"`
-		Image    string `json:"image" validate:"required"`
+		Title     string `json:"title" validate:"required"`
+		Content   string `json:"content" validate:"required"`
+		Category  string `json:"category" validate:"required"`
+		Image     string `json:"image" validate:"required"`
+		Published bool   `json:"published"`
 	}
 
 	input := new(UpdateBlogPost)
@@ -86,6 +89,7 @@ func UpdateBlogPost(c *fiber.Ctx) error {
 	post.Content = input.Content
 	post.Category = input.Category
 	post.Image = input.Image
+	post.Published = input.Published
 
 	if err := database.DB.Save(&post).Error; err != nil {
 		return fiber.ErrInternalServerError
