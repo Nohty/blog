@@ -1,6 +1,7 @@
 package components
 
 import "github.com/Nohty/blog/model"
+import "fmt"
 
 func getPublishState(post model.BlogPost) string {
 	if post.Published {
@@ -24,12 +25,12 @@ templ AdminPost(post model.BlogPost) {
 		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0 hidden md:table-cell">{ getPublishState(post) }</td>
 		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0">{ post.CreatedAt.Format("Jan 02, 2006") }</td>
 		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0 hidden md:table-cell">
-			<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
+			<a href={ templ.SafeURL(fmt.Sprintf("/admin/edit/%d", post.ID)) } class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
 				Edit
-			</button>
-			<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+			</a>
+			<a href={ templ.SafeURL(fmt.Sprintf("/admin/delete/%d", post.ID)) } class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
 				Delete
-			</button>
+			</a>
 		</td>
 	</tr>
 }
