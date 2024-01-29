@@ -36,4 +36,6 @@ func SetupRoutes(app *fiber.App) {
 	admin := web.Group("/admin")
 	admin.Get("/login", handler.AdminLoginHandler)
 	admin.Get("/", middleware.ProtectedWeb, handler.AdminHandler)
+	admin.Get("/new", middleware.ProtectedWeb, handler.AdminNewHandler)
+	admin.Get("/edit/:id", middleware.ProtectedWeb, handler.AdminEditHandler)
 }
