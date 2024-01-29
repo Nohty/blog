@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"time"
+
 	"github.com/Nohty/blog/database"
 	"github.com/Nohty/blog/middleware"
 	"github.com/Nohty/blog/model"
@@ -35,6 +37,12 @@ func Login(c *fiber.Ctx) error {
 	if err != nil {
 		return fiber.ErrInternalServerError
 	}
+
+	cookie := new(fiber.Cookie)
+	cookie.Name = "jwt"
+	cookie.Value = token
+	cookie.Expires = time.Now().Add(time.Hour * 24)
+	c.Cookie(cookie)
 
 	return utils.Response(c, fiber.StatusOK, token)
 }
