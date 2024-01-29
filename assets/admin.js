@@ -40,3 +40,28 @@ async function saveProfile() {
 
 	location.reload();
 }
+
+function deletePost(id) {
+	const modal = document.querySelector("#modal");
+	modal.classList.remove("hidden");
+
+	document
+		.querySelector("#modal-cancel-button")
+		.addEventListener("click", () => {
+			modal.classList.add("hidden");
+		});
+
+	document
+		.querySelector("#modal-delete-button")
+		.addEventListener("click", async () => {
+			const response = await fetch(`/api/blog/${id}`, {
+				method: "DELETE",
+			});
+
+			if (response.status !== 204) {
+				alert("Failed to delete post");
+			}
+
+			location.reload();
+		});
+}
