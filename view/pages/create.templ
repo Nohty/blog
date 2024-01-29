@@ -1,0 +1,92 @@
+package pages
+
+import "github.com/Nohty/blog/model"
+import "github.com/Nohty/blog/view/layout"
+
+templ CreatePost(post model.BlogPost) {
+	@layout.Base() {
+		<script src="/assets/create.js"></script>
+		<main class="flex h-screen bg-gray-900">
+			<div class="w-1/4 border-r bg-gray-800">
+				<div class="p-4">
+					if post.Title == "" {
+						<h2 class="text-lg font-semibold text-white">New Post</h2>
+					} else {
+						<h2 class="text-lg font-semibold text-white">Edit Post</h2>
+					}
+				</div>
+				<div class="p-4 space-y-4">
+					<div class="space-y-2">
+						<label
+							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
+							for="title"
+						>
+							Title
+						</label>
+						<input
+							class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-700 text-white"
+							id="title"
+							placeholder="Enter post title"
+							value={ post.Title }
+						/>
+					</div>
+					<div class="space-y-2">
+						<label
+							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
+							for="category"
+						>
+							Category
+						</label>
+						<input
+							class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-700 text-white"
+							id="category"
+							placeholder="Enter post category"
+							value={ post.Category }
+						/>
+					</div>
+					<div class="space-y-2">
+						<label
+							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
+							for="image"
+						>
+							Image
+						</label>
+						<input
+							class="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-700 text-white"
+							id="image"
+							placeholder="Enter image URL"
+							value={ post.Image }
+						/>
+					</div>
+					<div class="flex items-center space-x-2">
+						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Published</span>
+						<label class="relative inline-flex items-center cursor-pointer">
+							if post.Published {
+								<input id="published" type="checkbox" value="" class="sr-only peer checked"/>
+							} else {
+								<input id="published" type="checkbox" value="" class="sr-only peer"/>
+							}
+							<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+						</label>
+					</div>
+					<button
+						class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 mt-4 bg-blue-500 text-white w-full py-2 rounded"
+						onclick="saveBlog()"
+					>
+						Save
+					</button>
+				</div>
+			</div>
+			<div class="w-3/4 p-4">
+				<h2 class="text-lg font-semibold text-white">Content</h2>
+				<div class="mt-4">
+					<textarea
+						class="flex w-full h-[90vh] rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[500px] bg-gray-700 text-white"
+						placeholder="Start writing your post..."
+						id="content"
+					>{ post.Content }</textarea>
+				</div>
+			</div>
+		</main>
+	}
+}
