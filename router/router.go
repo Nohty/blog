@@ -16,17 +16,16 @@ func SetupRoutes(app *fiber.App) {
 	auth.Post("/login", handler.Login)
 
 	// API routes User
-	// user := api.Group("/user")
-	// user.Post("/", handler.CreateUser)
-	// user.Post("/refresh", handler.CreateBlogPostt)
+	user := api.Group("/user")
+	user.Put("/", middleware.ProtectedWeb, handler.UpdateUser)
 
 	// API routes Blog
 	blog := api.Group("/blog")
-	blog.Get("/", middleware.Protected, handler.GetBlogPosts)
-	blog.Get("/:id", middleware.Protected, handler.GetBlogPost)
-	blog.Post("/", middleware.Protected, handler.CreateBlogPost)
-	blog.Put("/:id", middleware.Protected, handler.UpdateBlogPost)
-	blog.Delete("/:id", middleware.Protected, handler.DeleteBlogPost)
+	blog.Get("/", middleware.ProtectedWeb, handler.GetBlogPosts)
+	blog.Get("/:id", middleware.ProtectedWeb, handler.GetBlogPost)
+	blog.Post("/", middleware.ProtectedWeb, handler.CreateBlogPost)
+	blog.Put("/:id", middleware.ProtectedWeb, handler.UpdateBlogPost)
+	blog.Delete("/:id", middleware.ProtectedWeb, handler.DeleteBlogPost)
 
 	// Web routes Blog
 	web.Get("/", handler.HomeHandler)
@@ -36,5 +35,5 @@ func SetupRoutes(app *fiber.App) {
 	// // Web routes Admin
 	admin := web.Group("/admin")
 	admin.Get("/login", handler.AdminLoginHandler)
-	admin.Get("/", handler.AdminHandler)
+	admin.Get("/", middleware.ProtectedWeb, handler.AdminHandler)
 }
