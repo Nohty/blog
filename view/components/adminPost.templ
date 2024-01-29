@@ -1,0 +1,35 @@
+package components
+
+import "github.com/Nohty/blog/model"
+
+func getPublishState(post model.BlogPost) string {
+	if post.Published {
+		return "Published"
+	}
+	return "Draft"
+}
+
+templ AdminPost(post model.BlogPost) {
+	<tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+			<img
+				src={ post.Image }
+				width="64"
+				height="64"
+				alt="Post image"
+				class="aspect-square rounded-md object-cover"
+			/>
+		</td>
+		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium">{ post.Title }</td>
+		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0 hidden md:table-cell">{ getPublishState(post) }</td>
+		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0">{ post.CreatedAt.Format("Jan 02, 2006") }</td>
+		<td class="p-4 align-middle [&:has([role=checkbox])]:pr-0 hidden md:table-cell">
+			<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
+				Edit
+			</button>
+			<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+				Delete
+			</button>
+		</td>
+	</tr>
+}
