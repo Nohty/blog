@@ -30,7 +30,7 @@ func BlogHandler(c *fiber.Ctx) error {
 	}
 
 	var posts []model.BlogPost
-	if err := database.DB.Find(&posts).Error; err != nil {
+	if err := database.DB.Where("published = ?", true).Find(&posts).Error; err != nil {
 		return fiber.ErrInternalServerError
 	}
 
@@ -112,4 +112,22 @@ func AdminHandler(c *fiber.Ctx) error {
 
 func AdminLoginHandler(c *fiber.Ctx) error {
 	return utils.Render(c, pages.Login())
+}
+
+func AdminNewHandler(c *fiber.Ctx) error {
+	return utils.Render(c, pages.CreatePost(model.BlogPost{}))
+}
+
+func AdminEditHandler(c *fiber.Ctx) error {
+	id, err := c.ParamsInt("id")
+	if err != nil {
+		return c.Redirect("/admin")
+	}
+
+	var post model.BlogPost
+	if err := database.DB.First(&post, id).Error; err != nil {
+		return c.Redirect("/admin")
+	}
+
+	return utils.Render(c, pages.CreatePost(post))
 }
