@@ -89,3 +89,21 @@ func BlogPostHandler(c *fiber.Ctx) error {
 
 	return utils.Render(c, pages.Post(user, post))
 }
+
+func AdminHandler(c *fiber.Ctx) error {
+	var user model.User
+	if err := database.DB.First(&user, database.USER_ID).Error; err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	var posts []model.BlogPost
+	if err := database.DB.Find(&posts).Error; err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	return utils.Render(c, pages.Admin(user, posts))
+}
+
+func AdminLoginHandler(c *fiber.Ctx) error {
+	return utils.Render(c, pages.Login())
+}
