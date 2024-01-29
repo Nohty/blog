@@ -6,6 +6,7 @@ import "github.com/Nohty/blog/view/components"
 
 templ Admin(user model.User, posts []model.BlogPost, profile bool) {
 	@layout.Base() {
+		<script src="/assets/admin.js"></script>
 		<main class="dark min-h-screen bg-gray-900">
 			<div class="dark grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
 				<div class="hidden border-r bg-gray-800 lg:block">
@@ -124,23 +125,9 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool) {
 							</form>
 						</div>
 						<button
-							class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-full border border-gray-700 w-8 h-8"
-							type="button"
-							id="radix-:r12:"
-							aria-haspopup="menu"
-							aria-expanded="false"
-							data-state="closed"
-						>
-							<img
-								src={ user.ImageUrl }
-								width="32"
-								height="32"
-								class="rounded-full"
-								alt="Avatar"
-								style="aspect-ratio: 32 / 32; object-fit: cover;"
-							/>
-							<span class="sr-only">Toggle user menu</span>
-						</button>
+							class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground"
+							onclick="logout()"
+						>Logout</button>
 					</header>
 					if profile {
 						@components.Profile(user)
