@@ -91,17 +91,23 @@ func BlogPostHandler(c *fiber.Ctx) error {
 }
 
 func AdminHandler(c *fiber.Ctx) error {
+	selected := c.Query("select")
+
 	var user model.User
 	if err := database.DB.First(&user, database.USER_ID).Error; err != nil {
 		return fiber.ErrInternalServerError
 	}
 
-	var posts []model.BlogPost
-	if err := database.DB.Find(&posts).Error; err != nil {
-		return fiber.ErrInternalServerError
+	if selected != "profile" {
+		var posts []model.BlogPost
+		if err := database.DB.Find(&posts).Error; err != nil {
+			return fiber.ErrInternalServerError
+		}
+
+		return utils.Render(c, pages.Admin(user, posts, false))
 	}
 
-	return utils.Render(c, pages.Admin(user, posts))
+	return utils.Render(c, pages.Admin(user, nil, true))
 }
 
 func AdminLoginHandler(c *fiber.Ctx) error {
