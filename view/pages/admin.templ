@@ -4,7 +4,7 @@ import "github.com/Nohty/blog/view/layout"
 import "github.com/Nohty/blog/model"
 import "github.com/Nohty/blog/view/components"
 
-templ Admin(user model.User, posts []model.BlogPost, profile bool) {
+templ Admin(user model.User, posts []model.BlogPost, profile bool, search string) {
 	@layout.Base() {
 		<script src="/assets/admin.js"></script>
 		<main class="dark min-h-screen bg-gray-900">
@@ -98,8 +98,8 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool) {
 							</svg>
 							<span class="sr-only">Home</span>
 						</a>
-						<div class="w-full flex-1 mt-3">
-							<form>
+						<div class="w-full flex-1">
+							<div>
 								<div class="relative">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -120,9 +120,11 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool) {
 										class="flex h-10 rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full bg-gray-800 shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 text-white"
 										placeholder="Search posts..."
 										type="search"
+										value={ search }
+										onChange="search(this.value)"
 									/>
 								</div>
-							</form>
+							</div>
 						</div>
 						<button
 							class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground"
