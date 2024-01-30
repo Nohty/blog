@@ -65,3 +65,10 @@ function deletePost(id) {
 			location.reload();
 		});
 }
+
+function search(value) {
+	urlParams = new URLSearchParams(window.location.search);
+	if (value) urlParams.set("search", value);
+	else urlParams.delete("search");
+	location.search = urlParams;
+}
