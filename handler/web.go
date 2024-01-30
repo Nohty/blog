@@ -92,6 +92,7 @@ func BlogPostHandler(c *fiber.Ctx) error {
 
 func AdminHandler(c *fiber.Ctx) error {
 	selected := c.Query("select")
+	search := c.Query("search")
 
 	if selected == "profile" {
 		var user model.User
@@ -99,7 +100,7 @@ func AdminHandler(c *fiber.Ctx) error {
 			return fiber.ErrInternalServerError
 		}
 
-		return utils.Render(c, pages.Admin(user, nil, true))
+		return utils.Render(c, pages.Admin(user, nil, true, ""))
 	}
 
 	var posts []model.BlogPost
@@ -107,7 +108,18 @@ func AdminHandler(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	return utils.Render(c, pages.Admin(model.User{}, posts, false))
+	if search != "" {
+		var filteredPosts []model.BlogPost
+		for _, post := range posts {
+			if strings.Contains(post.Title, search) {
+				filteredPosts = append(filteredPosts, post)
+			}
+		}
+
+		posts = filteredPosts
+	}
+
+	return utils.Render(c, pages.Admin(model.User{}, posts, false, search))
 }
 
 func AdminLoginHandler(c *fiber.Ctx) error {
