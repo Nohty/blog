@@ -62,7 +62,7 @@ templ CreatePost(post model.BlogPost) {
 						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Published</span>
 						<label class="relative inline-flex items-center cursor-pointer">
 							if post.Published {
-								<input id="published" type="checkbox" value="" class="sr-only peer checked"/>
+								<input id="published" type="checkbox" value="" class="sr-only peer" checked/>
 							} else {
 								<input id="published" type="checkbox" value="" class="sr-only peer"/>
 							}
