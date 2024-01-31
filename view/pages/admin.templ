@@ -4,7 +4,7 @@ import "github.com/Nohty/blog/view/layout"
 import "github.com/Nohty/blog/model"
 import "github.com/Nohty/blog/view/components"
 
-templ Admin(user model.User, posts []model.BlogPost, profile bool, search string) {
+templ Admin(user model.User, posts []model.BlogPost, search string) {
 	@layout.Base() {
 		<script src="/assets/admin.js"></script>
 		<main class="dark min-h-screen bg-gray-900">
@@ -34,7 +34,7 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool, search string
 						</div>
 						<div class="flex-1 overflow-auto py-2">
 							<nav class="grid items-start px-4 text-sm font-medium">
-								@components.Nav("/admin?select=profile", profile) {
+								@components.Nav("/admin?select=profile", posts == nil) {
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="24"
@@ -52,7 +52,7 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool, search string
 									</svg>
 									Profile
 								}
-								@components.Nav("/admin?select=posts", !profile) {
+								@components.Nav("/admin?select=posts", posts != nil) {
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="24"
@@ -131,7 +131,7 @@ templ Admin(user model.User, posts []model.BlogPost, profile bool, search string
 							onclick="logout()"
 						>Logout</button>
 					</header>
-					if profile {
+					if posts == nil {
 						@components.Profile(user)
 					} else {
 						@components.Posts(posts)
