@@ -25,7 +25,17 @@ async function saveBlog() {
 		});
 
 		if (response.status === 200) {
-			return (location.href = "/admin");
+			document.querySelector("#toast-success").classList.remove("hidden");
+
+			document
+				.querySelector("#toast-success button")
+				.addEventListener("click", () => {
+					document.querySelector("#toast-success").classList.add("hidden");
+				});
+
+			return setTimeout(() => {
+				document.querySelector("#toast-success").classList.add("hidden");
+			}, 3000);
 		}
 	}
 
