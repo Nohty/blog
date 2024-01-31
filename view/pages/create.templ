@@ -2,6 +2,7 @@ package pages
 
 import "github.com/Nohty/blog/model"
 import "github.com/Nohty/blog/view/layout"
+import "github.com/Nohty/blog/view/components"
 
 templ CreatePost(post model.BlogPost) {
 	@layout.Base() {
@@ -73,7 +74,11 @@ templ CreatePost(post model.BlogPost) {
 						class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 mt-4 bg-blue-500 text-white w-full py-2 rounded"
 						onclick="saveBlog()"
 					>
-						Save
+						if post.Title == "" {
+							Create Post
+						} else {
+							Update Post
+						}
 					</button>
 				</div>
 			</div>
@@ -87,6 +92,9 @@ templ CreatePost(post model.BlogPost) {
 					>{ post.Content }</textarea>
 				</div>
 			</div>
+			if post.Title != "" {
+				@components.Toast("Post saved successfully!")
+			}
 		</main>
 	}
 }
