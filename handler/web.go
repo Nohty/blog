@@ -100,7 +100,7 @@ func AdminHandler(c *fiber.Ctx) error {
 			return fiber.ErrInternalServerError
 		}
 
-		return utils.Render(c, pages.Admin(user, nil, true, ""))
+		return utils.Render(c, pages.Admin(user, nil, ""))
 	}
 
 	var posts []model.BlogPost
@@ -119,7 +119,7 @@ func AdminHandler(c *fiber.Ctx) error {
 		posts = filteredPosts
 	}
 
-	return utils.Render(c, pages.Admin(model.User{}, posts, false, search))
+	return utils.Render(c, pages.Admin(model.User{}, posts, search))
 }
 
 func AdminLoginHandler(c *fiber.Ctx) error {
